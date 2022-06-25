@@ -1,25 +1,36 @@
-const GenresModel = require("../models/GenresModel");
+const GenreModel = require("../models/GenreModel");
 
 exports.getAllGenres = async function (req, res, next) {
-  const allGenres = {};
-  res.send("This is the all genres page :)");
+  GenreModel.find()
+    .then((genres) => {
+      res.status(200).json(genres)
+    }).catch(next);
 }
 
+exports.search
 
-exports.postSingleGenre = async function (req, res, next) {
-  const genre = new GenresModel({
-    genre: "Action" /* req */
-  });
+exports.postSingleGenre = (req, res, next) => {  
+  GenreModel
+    .findOne({ genre: "Action" })
+    .then((existingGenre) => {
+      if (!existingGenre) {
+        const genre = new GenreModel({
+          genre: "Action" /* req */
+        });
 
-  try {
-    const newGenre = await genre.save();
-    console.log("CREATED!!!")
-    res.redirect(`genres`);
-  } catch {
-    res.render("genres/new", {
+        genre
+          .save()
+          .then((newGenre) => {
+            console.log(`${newGenre.genre} created as a genre :)`);
+            res.redirect(`genres`);
+          })
+        
+      }
+    })
+    .catch((next) => {
+      res.render("genres/new", {
       genre: genre,
       errorMessage: "Error creating Genre"
-    });
-  }
-
+    })
+    })      
 }
