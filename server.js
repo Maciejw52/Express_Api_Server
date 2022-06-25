@@ -29,7 +29,7 @@ const apiRouter = require("./routes/apiRouter");
 server.use("/api", apiRouter)
 
 
-// listen on port 7000 by default
+// listen on port 7000 by default if not defined in .env
 server.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 })

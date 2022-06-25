@@ -3,7 +3,7 @@ const genresRouter = require("express").Router();
 
 const {
   getAllGenres, postSingleGenre
-} = require("../controllers/GenresController");
+} = require("../controllers/GenreController");
 
 genresRouter
   .route("/")
