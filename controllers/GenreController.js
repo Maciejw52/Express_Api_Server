@@ -11,14 +11,14 @@ exports.search
 
 exports.postSingleGenre = (req, res, next) => {
   
-  const newgenre = new GenreModel({
+  const newGenre = new GenreModel({
     genre: req.body.genre
   })
   
-  newgenre.save()
+  newGenre.save()
     .then((Genrejson) => {
-      res.status(200).redirect("genres")
-  })
+      res.status(200).send(`Created Genre ${Genrejson.genre}`)
+  }).catch(next)
   
   /*GenreModel
     .findOne({ genre: "Action" })
@@ -43,4 +43,16 @@ exports.postSingleGenre = (req, res, next) => {
       errorMessage: "Error creating Genre"
     })
     })    */
+}
+
+exports.deleteSingleGenre = (req, res, next) => {
+  
+  const id = { _id: req.params._id };
+
+  console.log(`Deleting Genre with ID: ${id._id}`);
+  
+  GenreModel.deleteOne(id)
+    .then((result) => {
+      res.status(202).send(`Deleted ${id._id}`)
+    }).catch(next)
 }

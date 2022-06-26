@@ -2,7 +2,9 @@
 const genresRouter = require("express").Router();
 
 const {
-  getAllGenres, postSingleGenre
+  getAllGenres,
+  postSingleGenre,
+  deleteSingleGenre
 } = require("../controllers/GenreController");
 
 genresRouter
@@ -12,5 +14,9 @@ genresRouter
 genresRouter
   .route("/new")
   .post(postSingleGenre)
+
+genresRouter
+  .route("/:_id")
+  .delete(deleteSingleGenre)
 
 module.exports = genresRouter;
