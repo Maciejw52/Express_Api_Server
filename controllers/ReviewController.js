@@ -10,14 +10,14 @@ exports.getAllReviews = async function (req, res, next) {
 
 exports.postSingleReview = (req, res, next) => {
   let review = new ReviewModel({
-    film_title:         "Batman",
-    header:             "Very Nice",
-    owner:              "Maciej",
-    review_body:        "Sed in nulla euismod augue vestibulum varius. Vivamus maximus, libero vel convallis tristique, mauris lectus pulvinar urna, nec mattis lorem arcu non tellus. Vestibulum nulla quam, maximus sit amet sapien ut, convallis vehicula urna. Curabitur in odio at tellus fermentum consectetur. Cras et tempus arcu. Maecenas quis erat tristique, rutrum nisl a, pellentesque tortor. Nullam vel lorem diam. Praesent erat est, tempus vel lectus in, porttitor egestas odio. Nunc rhoncus commodo interdum. Aliquam volutpat eu odio eleifend dapibus. Duis sed justo ante. Nunc vel enim quam. Vestibulum sit amet purus quis mi volutpat tincidunt. Aliquam erat volutpat. Vestibulum consequat nibh purus. Quisque rutrum pharetra eleifend. Proin feugiat feugiat elit, vitae condimentum augue aliquam volutpat. Vestibulum et erat metus. Aliquam et neque consectetur, vulputate ante ut, varius massa. Integer mollis mi ut ex volutpat mattis. Sed sollicitudin convallis mollis. Duis pharetra leo id blandit placerat. In augue magna, facilisis in purus imperdiet, convallis vehicula nunc. Nulla ultricies nulla non urna ultrices dictum. Maecenas accumsan lobortis dictum.",
-    review_img_name:    "SOME_URL",
-    genre:              "62b7440d951fd9b1890d696a",
-    votes:              10,
-    rating:             5
+    film_title:         "Lorem",
+    header:             "Very Niqwefweagfwece",
+    owner:              "Mwegweacwegwegiej",
+    review_body:        "egwegwegwegSedwsegwsewsegweg in nulla euismod augue vestibulum varius. Vivamus maximus, libero vel convallis tristique, mauris lectus pulvinar urna, nec mattis lorem arcu non tellus. Vestibulum nulla quam, maximus sit amet sapien ut, convallis vehicula urna. Curabitur in odio at tellus fermentum consectetur. Cras et tempus arcu. Maecenas quis erat tristique, rutrum nisl a, pellentesque tortor. Nullam vel lorem diam. Praesent erat est, tempus vel lectus in, porttitor egestas odio. Nunc rhoncus commodo interdum. Aliquam volutpat eu odio eleifend dapibus. Duis sed justo ante. Nunc vel enim quam. Vestibulum sit amet purus quis mi volutpat tincidunt. Aliquam erat volutpat. Vestibulum consequat nibh purus. Quisque rutrum pharetra eleifend. Proin feugiat feugiat elit, vitae condimentum augue aliquam volutpat. Vestibulum et erat metus. Aliquam et neque consectetur, vulputate ante ut, varius massa. Integer mollis mi ut ex volutpat mattis. Sed sollicitudin convallis mollis. Duis pharetra leo id blandit placerat. In augue magna, facilisis in purus imperdiet, convallis vehicula nunc. Nulla ultricies nulla non urna ultrices dictum. Maecenas accumsan lobortis dictum.",
+    review_img_name:    "SwegwegwegOME_URL",
+    genre:              "62b7440d951fd9b1890d696a", /* NEEDS THE OBJECT_ID OF THE SPECIFIC GENRE */
+    votes:              14,
+    rating:             1414
     /*_id:                req.body._id,*/
   })
 

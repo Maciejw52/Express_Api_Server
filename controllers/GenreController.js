@@ -9,14 +9,24 @@ exports.getAllGenres = async function (req, res, next) {
 
 exports.search
 
-exports.postSingleGenre = (req, res, next) => {  
-  GenreModel
+exports.postSingleGenre = (req, res, next) => {
+  
+  const newgenre = new GenreModel({
+    genre: req.body.genre
+  })
+  
+  newgenre.save()
+    .then((Genrejson) => {
+      res.status(200).redirect("genres")
+  })
+  
+  /*GenreModel
     .findOne({ genre: "Action" })
     .then((existingGenre) => {
       if (!existingGenre) {
         const genre = new GenreModel({
-          genre: "Action" /* req */
-        });
+          genre: "Action"
+        })
 
         genre
           .save()
@@ -32,5 +42,5 @@ exports.postSingleGenre = (req, res, next) => {
       genre: genre,
       errorMessage: "Error creating Genre"
     })
-    })      
+    })    */
 }

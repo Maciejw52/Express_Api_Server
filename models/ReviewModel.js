@@ -24,10 +24,15 @@ const reviewSchema = new mongoose.Schema({
     type: String,
     required: false
   },
-  genre: {
+  genreId: {
     type: mongoose.Schema.Types.ObjectId, /* REVIEW GENRE */
     required: true,
     ref: "Genre"
+  },
+  genre: {
+    type: String,
+    required: true,
+    default: "None"
   },
   created_at: { /* REVIEW created at */
     type: Date,
@@ -35,7 +40,9 @@ const reviewSchema = new mongoose.Schema({
     default: Date.now
   },
   votes: { /* REVIEW VOTES FROM PUBLIC ( AGREE/DISAGREE ) */
-    type: Number
+    type: Number,
+    required: false,
+    default: 0
   },
   rating: { /* REVIEW RATING GIVEN BY  */
     type: Number,
