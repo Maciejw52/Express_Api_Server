@@ -24,11 +24,6 @@ const reviewSchema = new mongoose.Schema({
     type: String,
     required: false
   },
-  genreId: {
-    type: mongoose.Schema.Types.ObjectId, /* REVIEW GENRE */
-    required: false,
-    ref: "Genre"
-  },
   genre: {
     type: String,
     required: true,
@@ -51,14 +46,3 @@ const reviewSchema = new mongoose.Schema({
 })
 
 module.exports = mongoose.model("Review", reviewSchema)
-
-/*
-  film_title:
-  header: ,
-  owner: ,
-  review_body: ,
-  review_img_name: ,
-  genre: ,
-  votes:  ,
-  rating:  
-*/
