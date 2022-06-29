@@ -42,3 +42,16 @@ exports.postSingleReview = (req, res, next) => {
     _id:                req.body._id,
 
     */
+
+
+exports.getSingleReview = (req, res, next) => {
+  const id = { _id: req.params._id };
+
+  console.log(id)
+
+  ReviewModel.findById(id)
+    .then((review) => {
+      console.log(review)
+      res.status(202).json(review)
+  }).catch(next)
+}

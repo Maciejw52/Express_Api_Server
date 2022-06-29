@@ -4,7 +4,8 @@ const genresRouter = require("express").Router();
 const {
   getAllGenres,
   postSingleGenre,
-  deleteSingleGenre
+  deleteSingleGenre,
+  getSingleGenre
 } = require("../controllers/GenreController");
 
 genresRouter

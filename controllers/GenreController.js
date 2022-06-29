@@ -18,6 +18,7 @@ exports.postSingleGenre = (req, res, next) => {
   newGenre.save()
     .then((Genrejson) => {
       res.status(200).send(`Created Genre ${Genrejson.genre}`)
+      console.log(`Created Genre with ${Genrejson.genre} with ID ${Genrejson._id}`)
   }).catch(next)
   
   /*GenreModel
