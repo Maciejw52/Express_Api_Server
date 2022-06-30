@@ -35,4 +35,8 @@ server.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 })
 
+server.get("/", (req, res, next) => {
+    res.send("Server Is Online");
+})
+
 module.exports = server;

@@ -20,7 +20,7 @@ const reviewSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  review_img_name: { /* REVIEW IMAGE URL */
+  film_img: { /* REVIEW IMAGE URL */
     type: String,
     required: false
   },

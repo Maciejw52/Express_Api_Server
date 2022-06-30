@@ -1,7 +1,8 @@
 const {
   getAllReviews,
   postSingleReview,
-  getSingleReview
+  getSingleReview,
+  deleteSingleReview
 } = require("../controllers/ReviewController");
 
 // Define the router and require the review model
@@ -18,5 +19,6 @@ reviewsRouter
 reviewsRouter
   .route("/:_id")
   .get(getSingleReview)
+  .delete(deleteSingleReview)
 
 module.exports = reviewsRouter;

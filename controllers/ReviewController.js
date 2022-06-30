@@ -1,5 +1,6 @@
 const ReviewModel = require("../models/ReviewModel");
 
+
 exports.getAllReviews = async function (req, res, next) {
   ReviewModel.find()
     .then((genres) => {
@@ -13,17 +14,15 @@ exports.postSingleReview = (req, res, next) => {
     header:             req.body.header,
     owner:              req.body.owner,
     review_body:        req.body.review_body,
-    review_img_name:    req.body.review_img_name,
+    film_img:           req.body.film_img,
     genre:              req.body.genre,
     rating:             req.body.rating,
   });
 
-  console.log(review);
-
   review
     .save()
     .then((newReview) => {
-      res.status(201).json(newReview)
+      res.status(200).json(newReview);
     })
     .catch(next);
 }
@@ -37,4 +36,16 @@ exports.getSingleReview = (req, res, next) => {
     .then((review) => {
       res.status(202).json(review)
   }).catch(next)
+}
+
+exports.deleteSingleReview = (req, res, next) => {
+  
+  const id = { _id: req.params._id };
+
+  console.log(`Deleting Review with ID: ${id._id}`);
+  
+  ReviewModel.deleteOne(id)
+    .then((result) => {
+      res.status(202).send(`Deleted ${id._id}`)
+    }).catch(next)
 }
