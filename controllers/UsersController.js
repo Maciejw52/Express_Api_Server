@@ -1,30 +1,43 @@
 const UserModel = require("../models/UsersModel");
 
+
+/*
+
+    USER CREATION
+
+*/
 exports.postNewUser = (req, res, next) => {
   const newUser = new UserModel({
     username: req.body.username,
-    password: req.body.password
+    password: req.body.password,
+    email: req.body.email
   })
 
-  console.log(req.body)
+  // If user exists 
+  UserModel.findOne({ username: newUser.username }).then((resultFromSearch) => {
 
-  // Check for duplicate usernames
-  //const duplicate = UserModel.findOne({username: newUser.username})
-  
-  //if (duplicate === null) return res.sendStatus(409);
+    // If username already exists we exit
+    if (resultFromSearch !== null) {
+      console.log(`Cannot create user: User <${newUser.username}> already exists.`);
+      res.sendStatus(409)
+      
+    } else {
+      newUser.save().then((newUser) => {
+        console.log(`Created new user ${newUser}`)
+        res.sendStatus(200)
+      }).catch(next);
+    }
 
-  try {
-    newUser.save()
-    .then((UserJson) => {
-      res.status(201).send(`Created User ${UserJson.username}`)
-      console.log(`Created Genre with ${UserJson.username} with ID ${UserJson._id}`)
-    }).catch(next)
-
-  } catch (error) {
-    res.status(404).json({ "message": error.message });
-  }
+  })
 }
 
+
+
+/*
+
+    USER LOGIN
+
+*/
 exports.authenticateUser = (req, res, next) => {
   const newUser = new UserModel({
     username: req.body.username,
@@ -33,16 +46,23 @@ exports.authenticateUser = (req, res, next) => {
 
   UserModel.findOne({ username: newUser.username }).then((result) => {
     // res is null if user not found
-
+    console.log(`RESULT : ${result}`)
     if (result !== null) {
       console.log(`Authenticated user ${newUser.username}`);
       res.sendStatus(200)
     } else {
+      console.log(`User does not exist: ${newUser.username}`)
       res.sendStatus(401)
     }
 
   })
 }
+
+
+
+
+
+
 
 /* Out of use for now*/
 exports.deleteUser = (req, res, next) => {
