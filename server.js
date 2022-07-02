@@ -10,6 +10,12 @@ const server = express();
 
 const cors = require("cors");
 server.use(cors());
+
+
+server.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "https://film-reviewz.netlify.app/");
+})
+
 server.use(express.json());
 const port = process.env.PORT || 7000;
 
