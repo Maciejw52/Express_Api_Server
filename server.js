@@ -12,10 +12,6 @@ const cors = require("cors");
 server.use(cors());
 
 
-server.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "https://film-reviewz.netlify.app/");
-})
-
 server.use(express.json());
 const port = process.env.PORT || 7000;
 
@@ -39,10 +35,6 @@ server.use("/api", apiRouter)
 // listen on port 7000 by default if not defined in .env
 server.listen(port, () => {
     console.log(`Server listening on port ${port}`);
-})
-
-server.get("/", (req, res, next) => {
-    res.send("Server Is Online");
 })
 
 module.exports = server;

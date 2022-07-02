@@ -21,7 +21,7 @@ exports.postSingleGenre = (req, res, next) => {
       res.sendStatus(409)
     } else {
       newGenre.save().then((newUser) => {
-        console.log(`Created Genre with ${Genrejson.genre} with ID ${Genrejson._id}`)
+        console.log(`Created Genre with ${newUser.genre} with ID ${newUser._id}`)
         res.sendStatus(200)
       }).catch(next);
     }

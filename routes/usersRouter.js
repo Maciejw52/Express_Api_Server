@@ -7,11 +7,13 @@ const {
 } = require("../controllers/UsersController");
 
 usersRouter
+  .route("/")
+  .post(authenticateUser)
+
+usersRouter
   .route("/new")
   .post(postNewUser)
 
-usersRouter
-  .route("/")
-  .post(authenticateUser)
+
 
 module.exports = usersRouter;
