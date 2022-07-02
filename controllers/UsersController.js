@@ -1,4 +1,5 @@
 const UserModel = require("../models/UsersModel");
+const bcrypt = require("bcrypt");
 
 
 /*
@@ -7,28 +8,39 @@ const UserModel = require("../models/UsersModel");
 
 */
 exports.postNewUser = (req, res, next) => {
-  const newUser = new UserModel({
-    username: req.body.username,
-    password: req.body.password,
-    email: req.body.email
-  })
 
+  // Check if passwords are the same
+  if (req.body.password.valueOf() !== req.body.passwordCheck.valueOf()) {
+    res.sendStatus(418)
+  } else {
   // If user exists 
-  UserModel.findOne({ username: newUser.username }).then((resultFromSearch) => {
+    UserModel.findOne({ username: req.body.username }).then((resultFromSearch) => {
 
-    // If username already exists we exit
-    if (resultFromSearch !== null) {
-      console.log(`Cannot create user: User <${newUser.username}> already exists.`);
-      res.sendStatus(409)
-      
-    } else {
-      newUser.save().then((newUser) => {
-        console.log(`Created new user ${newUser}`)
-        res.sendStatus(200)
-      }).catch(next);
-    }
 
-  })
+
+      // If username already exists we exit
+      if (resultFromSearch !== null) {
+        console.log(`Cannot create user: User <${req.body.username}> already exists.`);
+        res.sendStatus(409)
+      } else {
+        // If new user:
+
+        const salt = 10
+        const hashedPassword = bcrypt.hashSync(req.body.password, salt);
+
+        const newUser = new UserModel({
+          username: req.body.username,
+          password: hashedPassword,
+          email: req.body.email
+        });
+
+        newUser.save().then((newUser) => {
+          console.log(`Created new user ${newUser}`)
+          res.sendStatus(200)
+        }).catch(next);
+      }
+    })
+  }
 }
 
 
@@ -39,29 +51,30 @@ exports.postNewUser = (req, res, next) => {
 
 */
 exports.authenticateUser = (req, res, next) => {
-  const newUser = new UserModel({
-    username: req.body.username,
-    password: req.body.password
-  })
+  const usernameFromClient = req.body.username;
 
-  UserModel.findOne({ username: newUser.username }).then((result) => {
+  UserModel.findOne({ username: usernameFromClient }).then((result) => {
     // res is null if user not found
-    console.log(`RESULT : ${result}`)
     if (result !== null) {
-      console.log(`Authenticated user ${newUser.username}`);
-      res.sendStatus(200)
+
+      //Checking hashed password
+      const checkPassword = bcrypt.compareSync(req.body.password, result.password)
+      
+      if (checkPassword) {
+        console.log(`Authenticated user ${usernameFromClient}`);
+        res.sendStatus(200)
+      } else {
+        console.log(`Incorrect password provided for ${usernameFromClient}`);
+        res.sendStatus(401)
+      }
+
     } else {
-      console.log(`User does not exist: ${newUser.username}`)
-      res.sendStatus(401)
+      console.log(`User does not exist: ${usernameFromClient}`)
+      res.sendStatus(404)
     }
 
   })
 }
-
-
-
-
-
 
 
 /* Out of use for now*/

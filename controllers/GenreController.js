@@ -10,40 +10,22 @@ exports.getAllGenres = async function (req, res, next) {
 exports.search
 
 exports.postSingleGenre = (req, res, next) => {
-  
   const newGenre = new GenreModel({
     genre: req.body.genre
   })
-  
-  newGenre.save()
-    .then((Genrejson) => {
-      res.status(200).send(`Created Genre ${Genrejson.genre}`)
-      console.log(`Created Genre with ${Genrejson.genre} with ID ${Genrejson._id}`)
-  }).catch(next)
-  
-  /*GenreModel
-    .findOne({ genre: "Action" })
-    .then((existingGenre) => {
-      if (!existingGenre) {
-        const genre = new GenreModel({
-          genre: "Action"
-        })
-
-        genre
-          .save()
-          .then((newGenre) => {
-            console.log(`${newGenre.genre} created as a genre :)`);
-            res.redirect(`genres`);
-          })
-        
-      }
-    })
-    .catch((next) => {
-      res.render("genres/new", {
-      genre: genre,
-      errorMessage: "Error creating Genre"
-    })
-    })    */
+  // If Genre exists 
+  GenreModel.findOne({ genre: newGenre.genre }).then((resultFromSearch) => {
+    // If username already exists we exit
+    if (resultFromSearch !== null) {
+      console.log(`Cannot create genre: Genre <${newGenre.genre}> already exists.`);
+      res.sendStatus(409)
+    } else {
+      newGenre.save().then((newUser) => {
+        console.log(`Created Genre with ${Genrejson.genre} with ID ${Genrejson._id}`)
+        res.sendStatus(200)
+      }).catch(next);
+    }
+  })
 }
 
 exports.deleteSingleGenre = (req, res, next) => {
