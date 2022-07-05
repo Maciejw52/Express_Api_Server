@@ -8,6 +8,16 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require("express");
 const server = express();
 
+const cors = require("cors");
+
+const corsOptions = {
+    origin: "*",
+    optionsSuccessStatus: 200,
+    methods: "GET,POST,DELETE"
+}
+
+server.use(cors(corsOptions));
+
 
 server.use(express.json());
 const port = process.env.PORT || 7000;
@@ -25,15 +35,7 @@ db.on("error", (error) => console.error(error));
 db.once("open", () => { console.log("Connected to Mongoose db :>") });
 
 
-const cors = require("cors");
 
-const corsOptions = {
-    origin: "https://film-reviewz.netlify.app",
-    optionsSuccessStatus: 200,
-    methods: "GET, POST, DELETE"
-}
-
-server.use(cors(corsOptions));
 
 
 // apiRouter
